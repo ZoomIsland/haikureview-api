@@ -5,15 +5,43 @@ from rest_framework.viewsets import ModelViewSet
 
 # auth
 from django.contrib.auth import authenticate
-from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_401_UNAUTHORIZED
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .serializers import HelloWorldSerializer, SubscriberSerializer
-from .models import Subscriber
+# port above down below here (as needed) for finalized views
+from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
+from rest_framework_jwt.settings import api_settings
+
+from .models import *
 
 
+@api_view(["POST"])
+def register(request):
+  username = request.data.get("username")
+  email = request.data.get("email")
+  password = request.data.get("password")
+  # what validation should be added here?
+  user = User.objects.create_user(username, email, password)
+  user.save();
+  profile = Profile(user=user, display_name=user.username)
+  profile.save();
+  # and then create/send the JWT Token
+  jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+  jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+  payload = jwt_payload_handler(user)
+  token = jwt_encode_handler(payload)
+  return Response({"token": token})
+
+  # see Login below
+
+
+
+
+
+# Below To Be Deleted (Tutorial)
 #auth
 @api_view(["POST"])
 def login(request):
