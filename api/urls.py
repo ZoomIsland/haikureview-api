@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from rest_framework.routers import SimpleRouter
 
-from .views import HelloWorldView, SubscriberView
+from .views import SubscriberViewSet
 
-urlpatterns = [
-    url(r'^hello', HelloWorldView.as_view(), name="hello_world"),
-    url(r'^subscriber', SubscriberView.as_view(), name="subscriber")
-]
+router = SimpleRouter()
+router.register("subscribers", SubscriberViewSet)
+
+urlpatterns = router.urls
 
 app_name = 'api'
