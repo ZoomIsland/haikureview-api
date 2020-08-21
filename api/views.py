@@ -1,5 +1,4 @@
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -12,6 +11,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .serializers import HelloWorldSerializer, SubscriberSerializer
 # port above down below here (as needed) for finalized views
 from django.contrib.auth.models import User
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework_jwt.settings import api_settings
 
@@ -35,14 +35,6 @@ def register(request):
   token = jwt_encode_handler(payload)
   return Response({"token": token})
 
-  # see Login below
-
-
-
-
-
-# Below To Be Deleted (Tutorial)
-#auth
 @api_view(["POST"])
 def login(request):
   username = request.data.get("username")
@@ -51,9 +43,16 @@ def login(request):
   user = authenticate(username=username, password=password)
   if not user:
     return Response({"error": "Login failed"}, status=HTTP_401_UNAUTHORIZED)
+  jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+  jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+  payload = jwt_payload_handler(user)
+  token = jwt_encode_handler(payload)
+  return Response({"token": token})
 
-  token, _ = Token.objects.get_or_create(user=user)
-  return Response({"token": token.key})
+
+
+
+# Below To Be Deleted (Tutorial)
 
 # You can also use functions with a decorator (api_view)
 # See http://polyglot.ninja/django-rest-framework-getting-started/
