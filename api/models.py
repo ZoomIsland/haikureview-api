@@ -30,12 +30,3 @@ class Comment(models.Model):
   rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
   comment = models.TextField(max_length=500, blank=True)
   post_date = models.DateField(auto_now_add=True)
-
-
-
-# From Tutorial, To Be Deleted
-class Subscriber(models.Model):
-  name = models.CharField("Name", max_length=50)
-  age = models.IntegerField("Age")
-  email = models.EmailField("Email")
-
