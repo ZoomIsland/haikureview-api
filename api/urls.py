@@ -5,7 +5,11 @@ from rest_framework_jwt.views import obtain_jwt_token
 from .views import *
 
 router = SimpleRouter()
-router.register("subscribers", SubscriberViewSet)
+# router.register("subscribers", SubscriberViewSet)
+router.register("profiles", ProfileViewSet)
+router.register(r"movies", MovieViewSet)
+router.register("haikus", HaikuViewSet)
+router.register("comments", CommentViewSet)
 
 urlpatterns = [
   url(r'^login/', login),

@@ -1,22 +1,21 @@
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView
-from rest_framework.viewsets import ModelViewSet
-
 # auth
-from django.contrib.auth import authenticate
 from rest_framework.status import HTTP_401_UNAUTHORIZED
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from .serializers import HelloWorldSerializer, SubscriberSerializer
+
 # port above down below here (as needed) for finalized views
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_jwt.settings import api_settings
 
 from .models import *
-
+from .serializers import *
 
 @api_view(["POST"])
 def register(request):
@@ -49,8 +48,28 @@ def login(request):
   token = jwt_encode_handler(payload)
   return Response({"token": token})
 
+class ProfileViewSet(ModelViewSet):
+  serializer_class = ProfileSerializer
+  queryset = Profile.objects.all()
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
+class MovieViewSet(ModelViewSet):
+  serializer_class = MovieSerializer
+  queryset = Movie.objects.all()
+  # Consider: Since a movie is only instantiated prior to commenting, where does it fall? What does it need?
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
+class HaikuViewSet(ModelViewSet):
+  serializer_class = HaikuSerializer
+  queryset = Haiku.objects.all()
+  # How to handle that Users should only be able to delete/update their OWN haikus?
+  permission_classes = (IsAuthenticatedOrReadOnly,)
+
+class CommentViewSet(ModelViewSet):
+  serializer_class = CommentSerializer
+  queryset = Comment.objects.all()
+  # How to handle that Users should only be able to delete/update their OWN haikus?
+  permission_classes = (IsAuthenticatedOrReadOnly,)
 
 # Below To Be Deleted (Tutorial)
 

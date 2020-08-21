@@ -1,8 +1,27 @@
 from rest_framework import serializers
 
-from .models import Subscriber
+from .models import *
 
-# Do I need a Serializer for the User?
+# does anything need to be excluded?
+class ProfileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Profile
+    fields = "__all__"
+
+class MovieSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Movie
+    fields = "__all__"
+
+class HaikuSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Haiku
+    fields = "__all__"
+
+class CommentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Comment
+    fields = "__all__"
 
 
 # Below To be Deleted (Tutorial)
