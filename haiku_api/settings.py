@@ -55,7 +55,8 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.TokenAuthentication',
+        # So why did removing the below break things?
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
     ),
 }

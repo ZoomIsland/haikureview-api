@@ -6,7 +6,7 @@ from .views import *
 
 router = SimpleRouter()
 router.register("profiles", ProfileViewSet)
-router.register(r"movies", MovieViewSet)
+router.register("movies", MovieViewSet)
 router.register("haikus", HaikuViewSet)
 router.register("comments", CommentViewSet)
 

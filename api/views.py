@@ -1,4 +1,3 @@
-# port above down below here (as needed) for finalized views
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
