@@ -13,9 +13,21 @@ class MovieSerializer(serializers.ModelSerializer):
     model = Movie
     fields = "__all__"
 
+# Title & Link classes (for Haikus, Comments)
+class TL_MovieSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Movie
+    fields = ['title', 'id']
+
+class TL_ProfileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Profile
+    fields = ['display_name', 'id']
+
+
 class HaikuSerializer(serializers.ModelSerializer):
-  user = serializers.StringRelatedField(many=False)
-  movie = serializers.StringRelatedField(many=False)
+  user = TL_ProfileSerializer(many=False)
+  movie = TL_MovieSerializer(many=False)
   class Meta:
     model = Haiku
     fields = "__all__"
