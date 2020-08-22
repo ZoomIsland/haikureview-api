@@ -14,6 +14,8 @@ class MovieSerializer(serializers.ModelSerializer):
     fields = "__all__"
 
 class HaikuSerializer(serializers.ModelSerializer):
+  user = serializers.StringRelatedField(many=False)
+  movie = serializers.StringRelatedField(many=False)
   class Meta:
     model = Haiku
     fields = "__all__"

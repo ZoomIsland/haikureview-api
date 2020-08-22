@@ -11,9 +11,15 @@ class Profile(models.Model):
   image = models.URLField(default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
   join_date = models.DateField(auto_now_add=True)
 
+  def __str__(self):
+    return self.display_name
+
 class Movie(models.Model):
   title = models.CharField(max_length=255)
   poster = models.URLField()
+
+  def __str__(self):
+    return self.title
 
 class Haiku(models.Model):
   movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
