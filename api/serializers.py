@@ -26,8 +26,10 @@ class TL_ProfileSerializer(serializers.ModelSerializer):
 
 
 class HaikuSerializer(serializers.ModelSerializer):
-  user = TL_ProfileSerializer(many=False)
-  movie = TL_MovieSerializer(many=False)
+  # user = TL_ProfileSerializer(many=False)
+  # movie = TL_MovieSerializer(many=False)
+  # user = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
+  # movie = serializers.PrimaryKeyRelatedField(queryset=Movie.objects.all())
   class Meta:
     model = Haiku
     fields = "__all__"

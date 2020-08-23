@@ -49,13 +49,13 @@ class MovieViewSet(ModelViewSet):
   serializer_class = MovieSerializer
   queryset = Movie.objects.all()
   # Consider: Since a movie is only instantiated prior to commenting, where does it fall? What does it need?
-  permission_classes = (IsAuthenticatedOrReadOnly,)
+  # permission_classes = (IsAuthenticatedOrReadOnly,)
 
 class HaikuViewSet(ModelViewSet):
   serializer_class = HaikuSerializer
   queryset = Haiku.objects.all()
   # How to handle that Users should only be able to delete/update their OWN haikus?
-  permission_classes = (IsAuthenticatedOrReadOnly,)
+  # permission_classes = (IsAuthenticatedOrReadOnly,)
 
 class CommentViewSet(ModelViewSet):
   serializer_class = CommentSerializer

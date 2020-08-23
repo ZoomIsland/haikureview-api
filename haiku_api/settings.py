@@ -65,6 +65,10 @@ REST_FRAMEWORK = {
     ),
 }
 
+JWT_AUTH = {
+    'JWT_AUTH_HEADER_PREFIX': 'Token'
+}
+
 ROOT_URLCONF = 'haiku_api.urls'
 
 TEMPLATES = [
