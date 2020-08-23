@@ -18,18 +18,17 @@ class TL_MovieSerializer(serializers.ModelSerializer):
   class Meta:
     model = Movie
     fields = ['title', 'id']
+    
 
-class TL_ProfileSerializer(serializers.ModelSerializer):
+# This as is works best for the create/update route
+class HaikuAddSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Profile
-    fields = ['display_name', 'id']
+    model = Haiku
+    fields = "__all__"
 
-
-class HaikuSerializer(serializers.ModelSerializer):
-  # user = TL_ProfileSerializer(many=False)
-  # movie = TL_MovieSerializer(many=False)
-  # user = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
-  # movie = serializers.PrimaryKeyRelatedField(queryset=Movie.objects.all())
+# This works best for Haiku Show routes
+class HaikuShowSerializer(serializers.ModelSerializer):
+  movie = TL_MovieSerializer(many=False)
   class Meta:
     model = Haiku
     fields = "__all__"

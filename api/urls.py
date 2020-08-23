@@ -7,7 +7,8 @@ from .views import *
 router = SimpleRouter()
 router.register("profiles", ProfileViewSet)
 router.register("movies", MovieViewSet)
-router.register("haikus", HaikuViewSet)
+router.register("haikus", HaikuShowViewSet)
+router.register("newhaiku", HaikuAddViewSet)
 router.register("comments", CommentViewSet)
 
 urlpatterns = [

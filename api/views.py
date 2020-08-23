@@ -43,25 +43,30 @@ def login(request):
 class ProfileViewSet(ModelViewSet):
   serializer_class = ProfileSerializer
   queryset = Profile.objects.all()
-  permission_classes = (IsAuthenticatedOrReadOnly,)
+  permission_classes = (IsAuthenticatedOrReadOnly)
 
 class MovieViewSet(ModelViewSet):
   serializer_class = MovieSerializer
   queryset = Movie.objects.all()
   # Consider: Since a movie is only instantiated prior to commenting, where does it fall? What does it need?
-  # permission_classes = (IsAuthenticatedOrReadOnly,)
+  # permission_classes = (IsAuthenticatedOrReadOnly)
 
-class HaikuViewSet(ModelViewSet):
-  serializer_class = HaikuSerializer
+class HaikuAddViewSet(ModelViewSet):
+  serializer_class = HaikuAddSerializer
   queryset = Haiku.objects.all()
   # How to handle that Users should only be able to delete/update their OWN haikus?
-  # permission_classes = (IsAuthenticatedOrReadOnly,)
+  # permission_classes = (IsAuthenticatedOrReadOnly)
+
+class HaikuShowViewSet(ModelViewSet):
+  serializer_class = HaikuShowSerializer
+  queryset = Haiku.objects.all()
+  # Don't forget to restrict permissions
 
 class CommentViewSet(ModelViewSet):
   serializer_class = CommentSerializer
   queryset = Comment.objects.all()
   # How to handle that Users should only be able to delete/update their OWN haikus?
-  permission_classes = (IsAuthenticatedOrReadOnly,)
+  permission_classes = (IsAuthenticatedOrReadOnly)
 
 # Backend API creation instantiated by following this tutorial:
 # See http://polyglot.ninja/django-rest-framework-getting-started/
