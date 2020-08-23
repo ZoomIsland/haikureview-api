@@ -8,17 +8,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     model = Profile
     fields = "__all__"
 
-class MovieSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Movie
-    fields = "__all__"
 
 # Title & Link classes (for Haikus, Comments)
 class TL_MovieSerializer(serializers.ModelSerializer):
   class Meta:
     model = Movie
     fields = ['title', 'id']
-    
+
 
 # This as is works best for the create/update route
 class HaikuAddSerializer(serializers.ModelSerializer):
@@ -32,6 +28,12 @@ class HaikuShowSerializer(serializers.ModelSerializer):
   class Meta:
     model = Haiku
     fields = "__all__"
+
+class MovieSerializer(serializers.ModelSerializer):
+  haikus = HaikuShowSerializer(many=True, read_only=True)
+  class Meta:
+    model = Movie
+    fields = ("title", "poster", "haikus", "id")
 
 class CommentSerializer(serializers.ModelSerializer):
   class Meta:
