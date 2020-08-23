@@ -3,11 +3,6 @@ from rest_framework import serializers
 from .models import *
 
 # does anything need to be excluded?
-class ProfileSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Profile
-    fields = "__all__"
-
 
 # Title & Link classes (for Haikus, Comments)
 class TL_MovieSerializer(serializers.ModelSerializer):
@@ -29,11 +24,25 @@ class HaikuShowSerializer(serializers.ModelSerializer):
     model = Haiku
     fields = "__all__"
 
+# This is now perfect for the Movie Show page
+# May be good enough for Movie List page
 class MovieSerializer(serializers.ModelSerializer):
   haikus = HaikuShowSerializer(many=True, read_only=True)
   class Meta:
     model = Movie
     fields = ("title", "poster", "haikus", "id")
+
+class ProfileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Profile
+    fields = "__all__"
+
+class UserSerializer(serializers.ModelSerializer):
+  profile = ProfileSerializer(many=False)
+  haikus = HaikuShowSerializer(many=True)
+  class Meta:
+    model = User
+    fields = ["profile", "id", "username", "haikus"]
 
 class CommentSerializer(serializers.ModelSerializer):
   class Meta:

@@ -23,7 +23,7 @@ class Movie(models.Model):
 
 class Haiku(models.Model):
   movie = models.ForeignKey(Movie, related_name='haikus', on_delete=models.CASCADE)
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, related_name='haikus', on_delete=models.CASCADE)
   title = models.CharField(max_length=150)
   line_one = models.CharField(max_length=50)
   line_two = models.CharField(max_length=70)

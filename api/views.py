@@ -41,9 +41,9 @@ def login(request):
   return Response({"token": token})
 
 class ProfileViewSet(ModelViewSet):
-  serializer_class = ProfileSerializer
-  queryset = Profile.objects.all()
-  permission_classes = (IsAuthenticatedOrReadOnly)
+  serializer_class = UserSerializer
+  queryset = User.objects.all()
+  # permission_classes = (IsAuthenticatedOrReadOnly)
 
 class MovieViewSet(ModelViewSet):
   serializer_class = MovieSerializer
