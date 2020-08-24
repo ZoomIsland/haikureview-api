@@ -45,6 +45,11 @@ class ProfileViewSet(ModelViewSet):
   queryset = User.objects.all()
   # permission_classes = (IsAuthenticatedOrReadOnly)
 
+class UpdateProfileViewSet(ModelViewSet):
+  serializer_class = UpdateProfileSerializer
+  queryset = Profile.objects.all()
+  # permission_classes = (IsAuthenticatedOrReadOnly)
+
 class MovieViewSet(ModelViewSet):
   serializer_class = MovieSerializer
   queryset = Movie.objects.all()

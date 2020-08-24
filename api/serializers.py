@@ -43,10 +43,17 @@ class MovieSerializer(serializers.ModelSerializer):
     model = Movie
     fields = ("title", "poster", "haikus", "id")
 
+# This works fine for my User get requests
 class ProfileSerializer(serializers.ModelSerializer):
   class Meta:
     model = Profile
     fields = "__all__"
+
+# This is for my Profile only put request
+class UpdateProfileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Profile
+    fields = ("id", "bio", "display_name")
 
 class UserSerializer(serializers.ModelSerializer):
   profile = ProfileSerializer(many=False)
