@@ -22,8 +22,8 @@ class Movie(models.Model):
     return self.title
 
 class Haiku(models.Model):
-  movie = models.ForeignKey(Movie, related_name='haikus', on_delete=models.CASCADE)
-  user = models.ForeignKey(User, related_name='haikus', on_delete=models.CASCADE)
+  movie = models.ForeignKey(Movie, related_name='haikus', on_delete=models.DO_NOTHING)
+  user = models.ForeignKey(User, related_name='haikus', on_delete=models.DO_NOTHING)
   title = models.CharField(max_length=150)
   line_one = models.CharField(max_length=50)
   line_two = models.CharField(max_length=70)
@@ -31,7 +31,7 @@ class Haiku(models.Model):
   post_date = models.DateField(auto_now_add=True)
 
 class Comment(models.Model):
-  haiku = models.ForeignKey(Haiku, related_name='comments', on_delete=models.CASCADE)
+  haiku = models.ForeignKey(Haiku, related_name='comments', on_delete=models.DO_NOTHING)
   user = models.ForeignKey(Profile, on_delete=models.CASCADE)
   rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
   comment = models.TextField(max_length=500, blank=True)

@@ -66,7 +66,7 @@ class CommentViewSet(ModelViewSet):
   serializer_class = CommentSerializer
   queryset = Comment.objects.all()
   # How to handle that Users should only be able to delete/update their OWN haikus?
-  permission_classes = (IsAuthenticatedOrReadOnly)
+  # permission_classes = (IsAuthenticatedOrReadOnly)
 
 # Backend API creation instantiated by following this tutorial:
 # See http://polyglot.ninja/django-rest-framework-getting-started/

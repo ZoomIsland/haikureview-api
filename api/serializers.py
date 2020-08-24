@@ -10,6 +10,17 @@ class TL_MovieSerializer(serializers.ModelSerializer):
     model = Movie
     fields = ['title', 'id']
 
+# Used for Profile -> Haikus -> Movies
+class FullData_MovieSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Movie
+    fields = "__all__"
+
+class FullData_HaikuSerializer(serializers.ModelSerializer):
+  movie = FullData_MovieSerializer(many=False)
+  class Meta:
+    model = Haiku
+    fields = "__all__"
 
 # This as is works best for the create/update route
 class HaikuAddSerializer(serializers.ModelSerializer):
@@ -39,7 +50,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
   profile = ProfileSerializer(many=False)
-  haikus = HaikuShowSerializer(many=True)
+  haikus = FullData_HaikuSerializer(many=True)
   class Meta:
     model = User
     fields = ["profile", "id", "username", "haikus"]
