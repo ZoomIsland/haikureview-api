@@ -66,3 +66,9 @@ class CommentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Comment
     fields = "__all__"
+
+class HaikuWithCommentsSerializer(serializers.ModelSerializer):
+  comments = CommentSerializer(many=True)
+  class Meta:
+    model = Haiku
+    fields = ["id", "comments"]

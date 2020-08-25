@@ -11,6 +11,7 @@ router.register("movies", MovieViewSet)
 router.register("haikus", HaikuShowViewSet)
 router.register("newhaiku", HaikuAddViewSet)
 router.register("comments", CommentViewSet)
+router.register("newcomment", NewCommentViewSet)
 
 urlpatterns = [
   url(r'^login/', login),

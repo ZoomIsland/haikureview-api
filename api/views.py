@@ -68,10 +68,14 @@ class HaikuShowViewSet(ModelViewSet):
   # Don't forget to restrict permissions
 
 class CommentViewSet(ModelViewSet):
-  serializer_class = CommentSerializer
-  queryset = Comment.objects.all()
+  serializer_class = HaikuWithCommentsSerializer
+  queryset = Haiku.objects.all()
   # How to handle that Users should only be able to delete/update their OWN haikus?
   # permission_classes = (IsAuthenticatedOrReadOnly)
+
+class NewCommentViewSet(ModelViewSet):
+  serializer_class = CommentSerializer
+  queryset = Comment.objects.all()
 
 # Backend API creation instantiated by following this tutorial:
 # See http://polyglot.ninja/django-rest-framework-getting-started/

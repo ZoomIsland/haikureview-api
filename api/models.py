@@ -32,7 +32,7 @@ class Haiku(models.Model):
 
 class Comment(models.Model):
   haiku = models.ForeignKey(Haiku, related_name='comments', on_delete=models.DO_NOTHING)
-  user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
   comment = models.TextField(max_length=500, blank=True)
   post_date = models.DateField(auto_now_add=True)
