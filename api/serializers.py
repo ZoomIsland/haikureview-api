@@ -62,13 +62,30 @@ class UserSerializer(serializers.ModelSerializer):
     model = User
     fields = ["profile", "id", "username", "haikus"]
 
+
+
+# Comment Update
 class CommentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Comment
     fields = "__all__"
 
+# Comment Show
+
+class UserSerializerIDwProfileName(serializers.ModelSerializer):
+  profile = ProfileSerializer(many=False)
+  class Meta:
+    model = User
+    fields = ["profile", "id"]
+
+class CommentWUserSerializer(serializers.ModelSerializer):
+  user = UserSerializerIDwProfileName(many=False)
+  class Meta:
+    model = Comment
+    fields = ["rating", "comment", "post_date", "user", "id"]
+
 class HaikuWithCommentsSerializer(serializers.ModelSerializer):
-  comments = CommentSerializer(many=True)
+  comments = CommentWUserSerializer(many=True)
   class Meta:
     model = Haiku
     fields = ["id", "comments"]
