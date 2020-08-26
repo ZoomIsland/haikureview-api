@@ -28,11 +28,11 @@ class Haiku(models.Model):
   line_one = models.CharField(max_length=50)
   line_two = models.CharField(max_length=70)
   line_three = models.CharField(max_length=50)
-  post_date = models.DateField(auto_now_add=True)
+  post_date = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):
   haiku = models.ForeignKey(Haiku, related_name='comments', on_delete=models.DO_NOTHING)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+  rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
   comment = models.TextField(max_length=500, blank=True)
-  post_date = models.DateField(auto_now_add=True)
+  post_date = models.DateTimeField(auto_now_add=True)
