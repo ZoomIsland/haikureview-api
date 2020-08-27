@@ -63,6 +63,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
     ),
+    'DATETIME_FORMAT': '%s000',
 }
 
 JWT_AUTH = {

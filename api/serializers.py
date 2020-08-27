@@ -28,21 +28,6 @@ class HaikuAddSerializer(serializers.ModelSerializer):
     model = Haiku
     fields = "__all__"
 
-# This works best for Haiku Show routes
-class HaikuShowSerializer(serializers.ModelSerializer):
-  movie = TL_MovieSerializer(many=False)
-  class Meta:
-    model = Haiku
-    fields = "__all__"
-
-# This is now perfect for the Movie Show page
-# May be good enough for Movie List page
-class MovieSerializer(serializers.ModelSerializer):
-  haikus = HaikuShowSerializer(many=True, read_only=True)
-  class Meta:
-    model = Movie
-    fields = ("title", "poster", "haikus", "id")
-
 # This works fine for my User get requests
 class ProfileSerializer(serializers.ModelSerializer):
   class Meta:
@@ -89,3 +74,27 @@ class HaikuWithCommentsSerializer(serializers.ModelSerializer):
   class Meta:
     model = Haiku
     fields = ["id", "comments"]
+
+# This works best for Haiku Show routes
+# user with Profile info only
+class UserNameWIdSerializer(serializers.ModelSerializer):
+  profile = ProfileSerializer(many=False)
+  class Meta:
+    model = User
+    fields = ["profile", "id"]
+
+class HaikuShowSerializer(serializers.ModelSerializer):
+  movie = TL_MovieSerializer(many=False)
+  comments = CommentWUserSerializer(many=True)
+  user = UserNameWIdSerializer(many=False)
+  class Meta:
+    model = Haiku
+    fields = "__all__"
+
+# This is now perfect for the Movie Show page
+# May be good enough for Movie List page
+class MovieSerializer(serializers.ModelSerializer):
+  haikus = HaikuShowSerializer(many=True, read_only=True)
+  class Meta:
+    model = Movie
+    fields = ("title", "poster", "haikus", "id")
