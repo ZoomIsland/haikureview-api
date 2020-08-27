@@ -136,7 +136,7 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    u'http://localhost:3000',
+    u'https://haikureviews.herokuapp.com/',
 )
 
 # Static files (CSS, JavaScript, Images)
