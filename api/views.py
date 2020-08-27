@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_jwt.settings import api_settings
+from rest_framework import filters
 
 from .models import *
 from .serializers import *
@@ -53,6 +54,8 @@ class UpdateProfileViewSet(ModelViewSet):
 class MovieViewSet(ModelViewSet):
   serializer_class = MovieSerializer
   queryset = Movie.objects.all()
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['title']
   # Consider: Since a movie is only instantiated prior to commenting, where does it fall? What does it need?
   # permission_classes = (IsAuthenticatedOrReadOnly)
 
@@ -65,7 +68,7 @@ class HaikuAddViewSet(ModelViewSet):
 class HaikuShowViewSet(ModelViewSet):
   serializer_class = HaikuShowSerializer
   queryset = Haiku.objects.all()
-  # Don't forget to restrict permissions
+  # permission_classes = (IsAuthenticatedOrReadOnly)
 
 class CommentViewSet(ModelViewSet):
   serializer_class = HaikuWithCommentsSerializer
@@ -76,6 +79,7 @@ class CommentViewSet(ModelViewSet):
 class NewCommentViewSet(ModelViewSet):
   serializer_class = CommentSerializer
   queryset = Comment.objects.all()
+  # permission_classes = (IsAuthenticatedOrReadOnly)
 
 # Backend API creation instantiated by following this tutorial:
 # See http://polyglot.ninja/django-rest-framework-getting-started/
