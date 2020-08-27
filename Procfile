@@ -1,1 +1,1 @@
-web: gunicorn wayfayer_project.wsgi --log-file -
+web: gunicorn haiku_api.wsgi --log-file -
